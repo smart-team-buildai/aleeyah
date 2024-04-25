@@ -1,5 +1,3 @@
-To create a fully detailed breakdown document for the Aleeyah project on the GitHub repository, you can follow these steps:
-
 ### Aleeyah: Personalized Food Analysis Chatbot
 
 Welcome to the Aleeyah project repository! Below is a comprehensive breakdown of the project documentation:

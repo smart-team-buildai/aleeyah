@@ -63,7 +63,3 @@ Reach out to the team for support or feedback related to Aleeyah.
 Check out the UI design for Aleeyah on Figma.
 
 [UI Design on Figma](https://www.figma.com/file/rNtqHkUPEIgDK0UNuf9YyS/Aleeyah?type=design&node-id=1-259&mode=design&t=RccUgFQPyJpZTtn2-0)
-
----
-
-Feel free to expand on each section further or add additional details as needed. You can create separate Markdown files for each section and organize them within the GitHub repository accordingly for easy navigation and accessibility. Let me know if you need further assistance!

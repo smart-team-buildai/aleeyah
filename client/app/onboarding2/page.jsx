@@ -3,35 +3,36 @@ import Image from "next/image";
 import { useState } from "react";
 
 function Onboarding() {
-  const [selectedIssues, setSelectedIssues] = useState([]);
-  const [issues, setIssues] = useState([
-    { id: 1, name: "Diabetes" },
-    { id: 2, name: "Hypertension" },
-    { id: 3, name: "Weight Management" },
-    { id: 4, name: "Heart Health" },
-    { id: 5, name: "Food Sensitivities and Intolerances" },
+  const [selectedAllergies, setSelectedAllergies] = useState([]);
+  const [allergies, setAllergies] = useState([
+    { id: 1, name: "Pea Nuts" },
+    { id: 2, name: "Tree Nuts" },
+    { id: 3, name: "Milk" },
+    { id: 4, name: "Eggs" },
+    { id: 5, name: "Wheat" },
+    { id: 6, name: "Soy" },
+    { id: 5, name: "Fish and Shellfish" },
+    { id: 5, name: "Sesame" },
   ]);
-  const [newIssueName, setNewIssueName] = useState("");
+  const [newAllergyName, setNewAllergyName] = useState("");
 
-  const toggleIssueSelection = (issueId) => {
-    if (selectedIssues.includes(issueId)) {
-      // If issueId is already selected, remove it
-      setSelectedIssues(selectedIssues.filter((id) => id !== issueId));
+  const toggleAllergySelection = (allergyId) => {
+    if (selectedAllergies.includes(allergyId)) {
+      setSelectedAllergies(selectedAllergies.filter((id) => id !== allergyId));
     } else {
-      // Otherwise, add issueId to selectedIssues
-      setSelectedIssues([...selectedIssues, issueId]);
+      setSelectedAllergies([...selectedAllergies, allergyId]);
     }
   };
 
-  const handleAddIssue = () => {
-    if (newIssueName.trim() !== "") {
-      const newIssue = {
-        id: issues.length + 1,
-        name: newIssueName.trim(),
+  const handleAddAllergy = () => {
+    if (newAllergyName.trim() !== "") {
+      const newAllergy = {
+        id: allergies.length + 1,
+        name: newAllergyName.trim(),
       };
 
-      setIssues([...issues, newIssue]);
-      setNewIssueName(""); // Clear the input after adding
+      setAllergies([...allergies, newAllergy]);
+      setNewAllergyName(""); // Clear the input after adding
     }
   };
 
@@ -53,35 +54,35 @@ function Onboarding() {
             Welcome Onboard
           </h1>
           <p className="text-[11px] md:text-base text-gray-400">
-            Aleeyah would love to know your health issues
+            What are your allergies
           </p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 md:w-3/5">
-          {issues?.map((issue) => (
+          {allergies?.map((allergy) => (
             <div
-              key={issue.id}
+              key={allergy.id}
               className={`cursor-pointer p-4 rounded-lg bg-gray-50 ${
-                selectedIssues.includes(issue.id)
+                selectedAllergies.includes(allergy.id)
                   ? "border border-primarycolor"
                   : ""
               }`}
-              onClick={() => toggleIssueSelection(issue.id)}
+              onClick={() => toggleAllergySelection(allergy.id)}
             >
-              <p className="text-gray-400">{issue.name}</p>
+              <p className="text-gray-400">{allergy.name}</p>
             </div>
           ))}
           <input
             type="text"
             placeholder="Add"
-            value={newIssueName}
-            onChange={(e) => setNewIssueName(e.target.value)}
+            value={newAllergyName}
+            onChange={(e) => setNewAllergyName(e.target.value)}
             className="p-4 rounded-lg bg-gray-50 outline-primarycolor w-2/5 text-gray-400"
           />
 
-          {newIssueName.length > 0 && (
+          {newAllergyName.length > 0 && (
             <button
-              onClick={handleAddIssue}
+              onClick={handleAddAllergy}
               className="border border-primarycolor p-4 rounded-lg text-primarycolor"
             >
               Add

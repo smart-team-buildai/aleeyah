@@ -6,7 +6,7 @@ import Image from "next/image";
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import "react-toastify/dist/ReactToastify.css";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function SignUp() {
@@ -18,7 +18,7 @@ export default function SignUp() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setloading] = useState(true);
+  const [loading, setloading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +45,7 @@ export default function SignUp() {
     } catch (error) {
       console.error(error.response.data.message); // Display error message
 
-      toast.error(response.data.message, {
+      toast.error(error.response.data.message, {
         position: "top-center",
       });
     } finally {

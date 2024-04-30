@@ -4,10 +4,17 @@ import axios from "axios";
 import { IoSend } from "react-icons/io5";
 import { marked } from "marked";
 import { CiUser } from "react-icons/ci";
+
+import { FaBowlFood } from "react-icons/fa6";
+import { WiStars } from "react-icons/wi";
+import { TbReplace } from "react-icons/tb";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import Image from "next/image";
 const ChatBot = () => {
   const [error, setError] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const surpriseOptions = [
     "How to make Jollof Rice?",
@@ -22,6 +29,7 @@ const ChatBot = () => {
   };
 
   const sendMessage = async () => {
+    setLoading(true);
     try {
       if (!inputValue.trim()) {
         setError("Please ask a question about your dietary needs.");
@@ -46,6 +54,8 @@ const ChatBot = () => {
     } catch (error) {
       console.error("Error sending message:", error);
       setError("Error sending message. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,14 +69,17 @@ const ChatBot = () => {
   }, []);
 
   function renderReadableText(text) {
-    // Replace double asterisks with <strong> tags for bold text
     const markdownText = text.replace(/\*{2}(.*?)\*{2}/g, "**$1**");
 
-    // Use marked library to render Markdown to HTML
     const htmlText = marked(markdownText);
 
     return <span dangerouslySetInnerHTML={{ __html: htmlText }} />;
   }
+
+  // const handleInputChange = (dataMessage) => {
+  //setInputValue(dataMessage);
+  //};
+
   return (
     <>
       {chatHistory.length === 0 ? (
@@ -83,24 +96,52 @@ const ChatBot = () => {
               <h1 className="text-lg font-bold text-gray-400">Presets</h1>
 
               <div className="grid grid-cols-4 gap-8">
-                <div className="p-8 rounded-lg h-[200px] cursor-pointer hover:border-[2.5px] hover:border-primarycolor bg-gray-50">
+                <div
+                  onClick={() =>
+                    setInputValue(
+                      "I have some ingredients what can make out of it",
+                    )
+                  }
+                  className="p-8 rounded-lg h-[200px] cursor-pointer hover:border-[2.5px] hover:border-primarycolor bg-gray-50"
+                >
                   <h1 className="text-gray-400 text-lg">
                     I have some ingredients what can i make out of it?
                   </h1>
                 </div>
 
-                <div className="p-8 rounded-lg h-[200px] cursor-pointer hover:border-[2.5px] hover:border-primarycolor bg-gray-50">
+                <div
+                  onClick={() =>
+                    setInputValue(
+                      "Come up with a meal plan and grocery list for the week for me",
+                    )
+                  }
+                  className="p-8 rounded-lg h-[200px] cursor-pointer hover:border-[2.5px] hover:border-primarycolor bg-gray-50"
+                >
                   <h1 className="text-gray-400 text-lg">
                     Come up with a meal plan and grocery list for the week for
                     me
                   </h1>
                 </div>
-                <div className="p-8 rounded-lg h-[200px] cursor-pointer hover:border-[2.5px] hover:border-primarycolor bg-gray-50">
+                <div
+                  onClick={() =>
+                    setInputValue(
+                      "Substitute the ingredients recipe for a food",
+                    )
+                  }
+                  className="p-8 rounded-lg h-[200px] cursor-pointer hover:border-[2.5px] hover:border-primarycolor bg-gray-50"
+                >
                   <h1 className="text-gray-400 text-lg">
                     Substitute the ingredients recipe for a food
                   </h1>
                 </div>
-                <div className="p-8 rounded-lg h-[200px] cursor-pointer hover:border-[2.5px] hover:border-primarycolor bg-gray-50">
+                <div
+                  onClick={() =>
+                    setInputValue(
+                      "I have been having a funny feeling since i ate, why could that be?",
+                    )
+                  }
+                  className="p-8 rounded-lg h-[200px] cursor-pointer hover:border-[2.5px] hover:border-primarycolor bg-gray-50"
+                >
                   <h1 className="text-gray-400 text-lg">
                     I have been having a funny feeling since i ate, why could
                     that be?
@@ -118,8 +159,12 @@ const ChatBot = () => {
               placeholder="How would you like aleeyah to help you today?"
               className="flex w-full outline-none bg-transparent"
             />
-            <button onClick={sendMessage} className="p-4">
-              <IoSend />
+            <button onClick={sendMessage} className="p-2 text-primarycolor">
+              {loading ? (
+                <AiOutlineLoading3Quarters className="animate-spin" />
+              ) : (
+                <IoSend />
+              )}
             </button>{" "}
           </div>
         </div>
@@ -127,7 +172,7 @@ const ChatBot = () => {
         <div className=" h-screen  w-full">
           <div className="flex  items-center justify-between  p-4">
             <h1 className="text-lg font-semibold text-primarycolor">
-              Aleeyah Chatbot
+              Aleeyah, your food companion
             </h1>{" "}
             <button onClick={clearChat} className="focus:outline-none">
               <svg
@@ -145,7 +190,7 @@ const ChatBot = () => {
               </svg>
             </button>
           </div>
-          <div className="chat-history h-[80%] overflow-y-auto md:w-4/6  mx-auto p-10 ">
+          <div className="chat-history h-[75%] overflow-y-auto md:w-4/6  mx-auto p-10 ">
             {chatHistory.map((item, index) => (
               <div
                 key={index}
@@ -166,13 +211,54 @@ const ChatBot = () => {
                 ) : (
                   <div className={`w-full my-4`}>
                     <div className="flex gap-4">
-                      <div className="bg-primarycolor w-[40px] h-[40px] flex justify-center items-center rounded-full">
-                        <CiUser className="text-xl text-white" />
+                      <div className="bg-primarycolor p-2 w-[40px] h-[40px] flex justify-center items-center rounded-full">
+                        <Image
+                          src={"/icon.svg"}
+                          width={1000}
+                          height={1000}
+                          alt="icon"
+                          className="w-full h-full object-contain"
+                        />
                       </div>
 
                       <div className="w-full">
                         <h1 className="font-bold ">Aleeyah</h1>
                         <p>{renderReadableText(item.parts)} </p>
+                        <div className="flex gap-4 flex-wrap mt-4">
+                          <div
+                            onClick={() =>
+                              setInputValue("Substitute the recipes")
+                            }
+                            className="flex gap-2 items-center bg-[#E5FFEC] p-4 rounded-lg "
+                          >
+                            <TbReplace />
+                            <p className="text-gray-400">
+                              Substitute the recipes
+                            </p>
+                          </div>
+                          <div
+                            onClick={() =>
+                              setInputValue("Sugest Something else i can eat")
+                            }
+                            className="flex gap-2 items-center bg-[#E5FFEC] p-4 rounded-lg "
+                          >
+                            <WiStars />
+                            <p className="text-gray-400">
+                              Suggest something else i can eat
+                            </p>
+                          </div>
+                          <div
+                            onClick={() =>
+                              setInputValue("Make a meal plan for the week")
+                            }
+                            className="flex gap-2 items-center bg-[#E5FFEC] p-4 rounded-lg "
+                          >
+                            <FaBowlFood />
+                            <p className="text-gray-400">
+                              Make a meal plan for the week
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>{" "}
                   </div>
@@ -180,21 +266,27 @@ const ChatBot = () => {
               </div>
             ))}{" "}
           </div>
-          <div className="flex justify-between">
-            <input
-              value={inputValue}
-              placeholder="Ask Aleeyah about your dietary needs..."
-              onChange={(e) => setInputValue(e.target.value)}
-              className="flex-1 mr-2 px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500" // Use same blue as existing code
-            />
-            <button
-              onClick={sendMessage}
-              className="bg-primarycolor text-white rounded-lg px-4 py-2 hover:bg-opacity-80 transition duration-300 ease-in-out"
-            >
-              Send
-            </button>
+
+          <div className="p-20">
+            <div className="w-ful p-4 justify-between rounded-full bg-gray-50 flex items-center">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="How would you like aleeyah to help you today?"
+                className="flex w-full outline-none bg-transparent"
+              />
+              <button onClick={sendMessage} className="p-2 text-primarycolor">
+                {loading ? (
+                  <AiOutlineLoading3Quarters className="animate-spin" />
+                ) : (
+                  <IoSend />
+                )}
+              </button>{" "}
+            </div>
           </div>
           {error && <p className="text-red-500 mt-2">{error}</p>}
+
           <button
             onClick={handleSurprise}
             className="mt-4 text-sm text-blue-500 flex items-center"

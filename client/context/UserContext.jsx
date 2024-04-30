@@ -13,6 +13,14 @@ export const UserContextProvider = ({ children }) => {
     }
   });
 
+  const [username, setUsername] = useState(() => {
+    // Initialize user from localStorage or default to null
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("username");
+      return storedUser ? JSON.parse(storedUser) : null;
+    }
+  });
+
   const [userId, setUserId] = useState(() => {
     // Initialize user from localStorage or default to null
     if (typeof window !== "undefined") {
@@ -31,13 +39,27 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     // Store user in localStorage
     if (typeof window !== "undefined") {
+      localStorage.setItem("username", JSON.stringify(username));
+    }
+  }, [username]);
+
+  useEffect(() => {
+    // Store user in localStorage
+    if (typeof window !== "undefined") {
       localStorage.setItem("userId", JSON.stringify(userId));
     }
   }, [userId]);
 
   return (
     <UserContext.Provider
-      value={{ userToken, setUserToken, userId, setUserId }}
+      value={{
+        userToken,
+        setUserToken,
+        userId,
+        setUserId,
+        username,
+        setUsername,
+      }}
     >
       {children}
     </UserContext.Provider>

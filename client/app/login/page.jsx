@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -11,7 +11,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { UserContext, UserContextProvider } from "@/context/UserContext";
 
 export default function Login() {
-  const { userId, setUserId, userToken, setUserToken } =
+  const { userId, setUserId, userToken, setUserToken, username, setUsername } =
     useContext(UserContext);
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -38,6 +38,7 @@ export default function Login() {
       console.log(response?.data);
       setUserToken(response?.data?.token);
       setUserId(response?.data?.user?.id); // Optional: Store token in local storage
+      setUsername(response?.data?.user?.username); // Optional: Store token in local storage
       toast.success(response.data.message, {
         position: "top-center",
       });
@@ -48,13 +49,19 @@ export default function Login() {
       // Redirect to dashboard after successful login
     } catch (error) {
       console.error(error); // Display error message
-      // toast.error(error.response?.data?.message, {
-      // position: "top-center",
-      //});
+      toast.error(error.response?.data?.message, {
+        position: "top-center",
+      });
     } finally {
       setloading(false);
     }
   };
+
+  useEffect(() => {
+    if (userToken) {
+      router.push(` /${userId}/chat`); // Redirect to home page or desired authenticated route
+    }
+  }, [userToken, userId, router]);
 
   return (
     <main className="h-[100vh] flex flex-col items-center justify-center gap-6">

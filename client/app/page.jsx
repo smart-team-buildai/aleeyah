@@ -43,9 +43,9 @@ export default function Home() {
               <l className="text-primarycolor">Food Journey</l> Companion
             </h1>
             <p className="text-xs text-center pr-5 pl-5 md:pr-36 md:pl-36 text-gray-400">
-              "Explore a world of allergy-friendly dining options with our food
+              Explore a world of allergy-friendly dining options with our food
               companion app. Discover safe and delicious meals tailored to your
-              dietary needs, ensuring every bite is a delightful experience."
+              dietary needs, ensuring every bite is a delightful experience.
             </p>
           </div>
           <div className="flex flex-wrap justify-center md:flex-wrap md:justify-center md:flex text-xs">

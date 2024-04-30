@@ -32,7 +32,11 @@ router.post("/register", async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.status(201).json({ token, user: { id: user.id, username, email } });
+    res.status(201).json({
+      message: "User registered successfully",
+      token,
+      user: { id: user.id, username, email },
+    });
   } catch (error) {
     console.error(error.message);
     // Handle specific errors (e.g., mongoose validation errors)
@@ -68,12 +72,13 @@ router.post("/login", async (req, res) => {
     );
 
     res.json({
+      message: "Login successfully",
       token,
       user: { id: user.id, username: user.username, email: user.email },
     });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Server Error, Please try again" });
   }
 });
 

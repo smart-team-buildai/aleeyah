@@ -1,12 +1,15 @@
 import SideBar from "@/components/Sidebar";
+import { UserContextProvider } from "@/context/UserContext";
 
 function Layout({ children }) {
   return (
     <>
-      <section className="flex ">
-        <SideBar />
-        {children}
-      </section>
+      <UserContextProvider>
+        <section className="flex ">
+          <SideBar />
+          {children}
+        </section>
+      </UserContextProvider>
     </>
   );
 }

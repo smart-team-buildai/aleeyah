@@ -11,7 +11,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { UserContext, UserContextProvider } from "@/context/UserContext";
 
 export default function Login() {
-  const { userId, setUserId, userToken, setUserToken, username, setUsername } =
+  const { userId, setUserId, userToken, setUserToken, setUsername } =
     useContext(UserContext);
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -64,9 +64,9 @@ export default function Login() {
   }, [userToken, userId, router]);
 
   return (
-    <main className="h-[100vh] flex flex-col items-center justify-center gap-6">
+    <main className="w-full h-screen md:w-2/6 mx-auto flex flex-col items-center p-4 md:p-2 md:justify-center gap-6">
       <ToastContainer />
-      <div className="w-[150px]">
+      <div className="md:w-[150px]">
         <Image
           src={"/logo.png"}
           width={1000}
@@ -76,7 +76,7 @@ export default function Login() {
         />
       </div>
 
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col w-full items-center">
         <h1 className="text-primarycolor font-bold text-3xl">Sign In</h1>
         <p>
           {"Don't have an account?"}{" "}
@@ -86,17 +86,19 @@ export default function Login() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-[25px]">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <label className="text-gray-400">E-mail address</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="youremail@example.com"
-            className="bg-gray-50 outline-primarycolor h-[60px] rounded px-3"
-          />
+      <div className="flex w-full flex-col gap-2">
+        <form onSubmit={handleSubmit} className="flex flex-col w-full gap-8">
+          <div className="flex flex-col w-full">
+            <label className="text-gray-400">E-mail address</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="youremail@example.com"
+              className="bg-gray-50 outline-primarycolor h-[60px] rounded px-3"
+            />
+          </div>{" "}
           <div className="flex flex-col gap-1">
             <label className="text-gray-400">Password</label>
             <div className="relative">
@@ -129,25 +131,21 @@ export default function Login() {
           </div>
           {formData.password.length > 6 && formData.email.length > 0 ? (
             loading ? (
-              <button
-                type="submit"
-                className="bg-green-200 py-3 px-[200px] rounded text-white"
-              >
+              <button className="bg-green-200 p-4 md:p-6 rounded text-white">
                 <AiOutlineLoading3Quarters className="text-primarycolor font-bold animate-spin" />
               </button>
             ) : (
               <button
                 type="submit"
-                className="bg-primarycolor py-3 px-[200px] rounded text-white"
+                className="bg-primarycolor p-4 md:p-6 rounded text-white"
               >
                 Continue
               </button>
             )
           ) : (
             <button
-              type="submit"
               disabled
-              className="cursor-help bg-gray-200 py-3 px-[200px] rounded text-white"
+              className="cursor-help bg-gray-200 p-4 md:p-6  rounded text-white"
             >
               Continue
             </button>

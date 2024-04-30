@@ -1,13 +1,17 @@
+"use client";
 import { MdOutlineMenu } from "react-icons/md";
 
 import { CiServer, CiSettings } from "react-icons/ci";
 import { IoChatbubbles } from "react-icons/io5";
 import { GoPlus } from "react-icons/go";
 import Link from "next/link";
+import { useContext } from "react";
+import { UserContext } from "@/context/UserContext";
 function SideBar() {
+  const { username } = useContext(UserContext);
   return (
     <>
-      <div className="w-2/12 bg-gray-50 p-8 gap-10 flex flex-col justify-between h-screen">
+      <div className="md:flex hidden w-2/12 bg-gray-50 p-8 gap-10 flex-col justify-between h-screen">
         <div className="flex flex-col gap-8">
           <div>
             <MdOutlineMenu className="text-lg" />
@@ -58,7 +62,7 @@ function SideBar() {
               <h1 className="text-white">A</h1>
             </div>
 
-            <h1>Aleeyah Aleeyah</h1>
+            <h1>{username}</h1>
           </div>
         </div>
       </div>

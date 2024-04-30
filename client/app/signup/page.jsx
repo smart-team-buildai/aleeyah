@@ -55,7 +55,7 @@ export default function SignUp() {
   };
 
   return (
-    <main className="h-[100vh] flex flex-col items-center justify-center gap-6">
+    <main className="w-full h-screen md:w-2/6 mx-auto flex flex-col items-center p-4 md:p-2 md:justify-center gap-6">
       <ToastContainer />
       <div className="w-[150px]">
         <Image
@@ -63,11 +63,11 @@ export default function SignUp() {
           width={1000}
           height={1000}
           alt="product logo"
-          className="object-contain outline-primarycolor w-full h-full"
+          className="object-contain w-full h-full"
         />
       </div>
 
-      <div className="flex flex-col items-center">
+      <div className="flex w-full flex-col items-center">
         <h1 className="text-primarycolor font-bold text-3xl">
           Sign up for free
         </h1>
@@ -79,9 +79,9 @@ export default function SignUp() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-[25px]">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          <div className="flex flex-col gap-1">
+      <div className="flex w-full flex-col gap-[25px]">
+        <form onSubmit={handleSubmit} className="flex w-full flex-col gap-8">
+          <div className="flex flex-col w-full">
             <label className="text-gray-400">Username</label>
             <input
               type="text"
@@ -139,25 +139,21 @@ export default function SignUp() {
           formData.password.length > 6 &&
           formData.email.length > 0 ? (
             loading ? (
-              <button
-                type="submit"
-                className="bg-green-200 py-3 px-[200px] rounded text-white"
-              >
+              <button className="bg-green-200 p-4 md:p-6 rounded text-white">
                 <AiOutlineLoading3Quarters className="text-primarycolor font-bold animate-spin" />
               </button>
             ) : (
               <button
                 type="submit"
-                className="bg-primarycolor py-3 px-[200px] rounded text-white"
+                className="bg-primarycolor md:p-6 p-4 rounded text-white"
               >
                 Continue
               </button>
             )
           ) : (
             <button
-              type="submit"
               disabled
-              className="cursor-help bg-gray-200 py-3 px-[200px] rounded text-white"
+              className="cursor-help bg-gray-200 md:p-6 p-4 rounded text-white"
             >
               Continue
             </button>

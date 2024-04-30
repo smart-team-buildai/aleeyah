@@ -6,4 +6,4 @@ function UserId() {
   );
 }
 
-export default UserId();
+export default UserId;

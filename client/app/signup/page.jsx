@@ -35,7 +35,8 @@ export default function SignUp() {
       );
       console.log(response.data.message);
 
-      toast.success(response.data.message, {
+      console.log(response);
+      toast.success(response.message, {
         position: "top-center",
       });
 

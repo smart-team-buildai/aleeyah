@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -8,8 +8,11 @@ import { ToastContainer, toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { UserContext, UserContextProvider } from "@/context/UserContext";
 
 export default function Login() {
+  const { userId, setUserId, userToken, setUserToken } =
+    useContext(UserContext);
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -32,21 +35,22 @@ export default function Login() {
         "http://localhost:8000/auth/login",
         formData,
       );
-      console.log(response.data.token);
-      console.log(response.data); // Optional: Store token in local storage
+      console.log(response?.data);
+      setUserToken(response?.data?.token);
+      setUserId(response?.data?.user?.id); // Optional: Store token in local storage
       toast.success(response.data.message, {
         position: "top-center",
       });
 
       setTimeout(() => {
-        router.push("/"); // Redirect to login page after successful signup
+        router.push(` /${userId}/bot`); // Redirect to login page after successful signup
       }, 3000);
       // Redirect to dashboard after successful login
     } catch (error) {
-      console.error(error.response.data.message); // Display error message
-      toast.error(error.response.data.message, {
-        position: "top-center",
-      });
+      console.error(error); // Display error message
+      // toast.error(error.response?.data?.message, {
+      // position: "top-center",
+      //});
     } finally {
       setloading(false);
     }

@@ -62,7 +62,7 @@ export default function SignUp() {
           width={1000}
           height={1000}
           alt="product logo"
-          className="object-contain w-full h-full"
+          className="object-contain outline-primarycolor w-full h-full"
         />
       </div>
 
